@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+ --background: #F4F9F4; /* Background Fresh & Clean */
+  --foreground: #2C3E50;
 }
 
 @theme inline {
@@ -12,15 +12,44 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* 
+  PENTING: Bagian @media (prefers-color-scheme: dark) sengaja dihilangkan. 
+  Tujuannya agar tema pastel ini tetap terkunci dan tidak berubah 
+  menjadi hitam pekat meskipun sistem OS pengunjung menggunakan Dark Mode.
+*/
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Baris font-family di sini dihapus karena sudah diatur Next.js di layout.tsx */
+}
+
+/* Mesin penggerak Sprite Sheet Karakter 2D */
+.character-run {
+  width: 945px; 
+  height: 600px; 
+  /* background-color: rgb(251, 251, 251); <-- Bisa dihapus kalau sudah pas */
+  background-image: url('/CharacterAnimations/Run.png');
+  background-repeat: no-repeat;
+  background-size: 2048px 512px;
+  
+  /* Pastikan posisi awal ada di ujung kiri atas */
+
+  
+  transform: scale(0.3);
+  transform-origin: bottom center;
+  animation: run-cycle 3s steps(8) infinite;
+}
+
+/* Menggeser gambar dari pose pertama ke pose terakhir */
+@keyframes run-cycle {
+  /* MENGGESER KE KIRI (Gunakan minus, misal -30px atau -50px) */
+  /* MENGGESER KE KANAN (Gunakan positif, misal 30px atau 50px) */
+  
+  /* Contoh: Kita geser 40 pixel ke kiri */
+  from { background-position: -40px 0px; } 
+  
+  /* Karena 'from' digeser -40px, maka 'to' (yang aslinya -2048) harus ditambah -40px juga.
+     Hasilnya: -2048 - 40 = -2088px */
+  to { background-position: -2088px 0px; } 
 }
